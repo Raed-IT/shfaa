@@ -2,7 +2,8 @@
 
 return [
 
-    'direction' => 'ltr',
+//    'direction' => 'ltr',
+    'direction' => 'rtl',
 
     'buttons' => [
 

@@ -5,8 +5,8 @@
 <!DOCTYPE html>
 <html
     lang="{{ str_replace('_', '-', app()->getLocale()) }}"
-    dir="rtl"
-    {{--    dir="{{ __('filament::layout.direction') ?? 'ltr' }}"--}}
+{{--    dir="rtl"--}}
+        dir="{{ __('filament::layout.direction') ?? 'ltr' }}"
     class="antialiased bg-gray-100 filament js-focus-visible"
 >
 <head>
