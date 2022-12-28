@@ -18,7 +18,8 @@ class RolesAndPermissionsSeeder extends Seeder
      *
      * @return void
      */
-    public function run() {
+    public function run()
+    {
         // reset cached roles and permissions
         app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
 
@@ -108,7 +109,6 @@ class RolesAndPermissionsSeeder extends Seeder
 
         User::create([
             'name' => 'admin',
-            'is_admin' => 1,
             'email' => 'admin@admin.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),
@@ -131,10 +131,11 @@ class RolesAndPermissionsSeeder extends Seeder
             'remember_token' => Str::random(10),
         ])->assignRole($developerRole);
 
-        for ($i=1; $i < 50; $i++) {
+        for ($i = 1; $i < 50; $i++) {
+            $this->command->info("seeding user " . $i);
             User::create([
-                'name' => 'Test '.$i,
-                'email' => 'test'.$i.'@test.com',
+                'name' => 'Test ' . $i,
+                'email' => 'test' . $i . '@test.com',
                 'email_verified_at' => now(),
                 'password' => Hash::make('password'), // password
                 'remember_token' => Str::random(10),

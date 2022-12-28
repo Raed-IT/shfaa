@@ -12,10 +12,9 @@
 <head>
     {{ \Filament\Facades\Filament::renderHook('head.start') }}
 
-    <meta charset="utf-8">
+    <meta charset="utf-8 ">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     @foreach (\Filament\Facades\Filament::getMeta() as $tag)
         {{ $tag }}
     @endforeach
@@ -86,9 +85,10 @@
     @endif
 
     {{ \Filament\Facades\Filament::renderHook('head.end') }}
+
 </head>
 
-<body @class([
+<body  @class([
         'filament-body bg-gray-100 text-gray-900',
         'dark:text-gray-100 dark:bg-gray-900' => config('filament.dark_mode'),
     ])>
@@ -101,6 +101,7 @@
 @livewireScripts
 
 <script>
+    @vite('resources/css/app.css')
     window.filamentData = @json(\Filament\Facades\Filament::getScriptData());
 </script>
 
