@@ -15,15 +15,17 @@ class PermissionResource extends Resource
 {
     protected static ?string $model = Permission::class;
     protected static ?string $navigationGroup = "اداره المستخدمين";
-    protected static ?string $label = " الصلاحيات ";
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $modelLabel = " الصلاحيات ";
 
+    protected static ?string $navigationIcon = 'heroicon-o-collection';
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Card::make([
-                    Forms\Components\TextInput::make('name')->required()->unique(ignoreRecord: true)
+                    Forms\Components\TextInput::make('name')
+                        ->required()->unique(ignoreRecord: true)
+                        ->label("الاسم")
                 ]),
             ]);
     }
@@ -32,8 +34,8 @@ class PermissionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make("name"),
-                Tables\Columns\TextColumn::make("created_at")->dateTime("d-m-y"),
+                Tables\Columns\TextColumn::make("name")->label("الاسم"),
+                Tables\Columns\TextColumn::make("created_at")->dateTime("d-m-y")->label("تاريخ الانشاء"),
             ])
             ->filters([
                 //

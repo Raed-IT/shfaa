@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\RoleResource\Pages;
 
+use App\Filament\Resources\RoleResource\RelationManagers\PermissionsRelationManager;
 use Filament\Forms;
 use Filament\Pages\Actions\ActionGroup;
 use Filament\Resources\Form;
@@ -18,15 +19,20 @@ class RoleResource extends Resource
 {
     protected static ?string $model = Role::class;
     protected static ?string $navigationGroup = "اداره المستخدمين";
-    protected static ?string $label = " الادوار  ";
     protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $modelLabel = 'الادوار ';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Card::make([
-                    Forms\Components\TextInput::make('name')->required()->unique(ignoreRecord: true)
+                    Forms\Components\TextInput::make('name')->required()->unique(ignoreRecord: true)->label('الاسم '),
+                    Forms\Components\CheckboxList::make('permissions')
+                        ->relationship("permissions", "name")
+                        ->columns(3)
+                        ->unique()->required()
+                        ->label("الصلاحيات"),
                 ]),
             ]);
     }
@@ -35,7 +41,7 @@ class RoleResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make("name"),
+                Tables\Columns\TextColumn::make("name")->label("الاسم"),
                 Tables\Columns\TextColumn::make("created_at")->dateTime("d-m-y"),
             ])
             ->filters([
@@ -44,8 +50,6 @@ class RoleResource extends Resource
             ->actions([
                 Tables\Actions\EditAction::make()->label("تعديل"),
                 Tables\Actions\DeleteAction::make()->label("حذف"),
-
-
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -55,7 +59,7 @@ class RoleResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            PermissionsRelationManager::class,
         ];
     }
 
