@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\UserResource\Pages;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Pages\Actions\Action;
 
 use App\Models\User;
@@ -26,7 +27,16 @@ class UserResource extends Resource
     {
         return $form
             ->schema([
-
+                Forms\Components\Card::make([
+                    Forms\Components\TextInput::make('name')
+                        ->required()->unique(ignoreRecord: true)
+                        ->label("الاسم المشفى"),
+                    Forms\Components\TextInput::make('phone')
+                        ->unique(ignoreRecord: true)
+                        ->label("رقم التواصل "),
+                    SpatieMediaLibraryFileUpload::make('image'),
+                    Forms\Components\Toggle::make('is_active')->default(true)->label("الحاله"),
+                ]),
             ]);
     }
 

@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('name');
             $table->string('SN');
             $table->bigInteger("hospital_id");
-
+            $table->boolean("is_active")->default(true);
             $table->timestamps();
         });
     }

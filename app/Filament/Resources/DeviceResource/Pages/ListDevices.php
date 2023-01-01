@@ -3,6 +3,8 @@
 namespace App\Filament\Resources\DeviceResource\Pages;
 
 use App\Filament\Resources\DeviceResource;
+use App\Filament\Resources\DeviceResource\Widgets\StatusDevicesOverview;
+use App\Filament\Resources\HospitalResource\Widgets\StatusOverview;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
 
@@ -13,7 +15,13 @@ class ListDevices extends ListRecords
     protected function getActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()->label("اضف جهاز"),
+        ];
+    }
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            StatusDevicesOverview::class,
         ];
     }
 }

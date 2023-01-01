@@ -14,7 +14,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([RolesAndPermissionsSeeder::class, HospitalSeeder::class]);
+        $this->call([
+            RolesAndPermissionsSeeder::class,
+            HospitalSeeder::class,
+            DeviceSeeder::class,
+            ]);
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([

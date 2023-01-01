@@ -37,7 +37,7 @@ class HospitalResource extends Resource
                     Forms\Components\TextInput::make('phone')
                         ->unique(ignoreRecord: true)
                         ->label("رقم التواصل "),
-                    SpatieMediaLibraryFileUpload::make('image'),
+                    SpatieMediaLibraryFileUpload::make('image')->disk('public'),
                     Forms\Components\Toggle::make('is_active')->default(true)->label("الحاله"),
                 ]),
             ]);
