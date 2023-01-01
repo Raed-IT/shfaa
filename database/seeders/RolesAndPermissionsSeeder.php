@@ -38,12 +38,6 @@ class RolesAndPermissionsSeeder extends Seeder
         $rolePermission3 = Permission::create(['name' => 'update: role']);
         $rolePermission4 = Permission::create(['name' => 'delete: role']);
 
-        // PERMISSION MODEL
-        $permission1 = Permission::create(['name' => 'create: permission']);
-        $permission2 = Permission::create(['name' => 'read: permission']);
-        $permission3 = Permission::create(['name' => 'update: permission']);
-        $permission4 = Permission::create(['name' => 'delete: permission']);
-
         // ADMINS
         $adminPermission1 = Permission::create(['name' => 'read: admin']);
         $adminPermission2 = Permission::create(['name' => 'update: admin']);
@@ -62,10 +56,6 @@ class RolesAndPermissionsSeeder extends Seeder
             $rolePermission2,
             $rolePermission3,
             $rolePermission4,
-            $permission1,
-            $permission2,
-            $permission3,
-            $permission4,
             $adminPermission1,
             $adminPermission2,
             $userPermission1,
@@ -79,10 +69,7 @@ class RolesAndPermissionsSeeder extends Seeder
             $rolePermission2,
             $rolePermission3,
             $rolePermission4,
-            $permission1,
-            $permission2,
-            $permission3,
-            $permission4,
+
             $adminPermission1,
             $adminPermission2,
             $userPermission1,
@@ -90,7 +77,7 @@ class RolesAndPermissionsSeeder extends Seeder
         $dataEntryRole = Role::create(['name' => 'data_entry'])->syncPermissions([
             $userPermission2,
             $rolePermission2,
-            $permission2,
+
             $adminPermission1,
         ]);
         $developerRole = Role::create(['name' => 'developer'])->syncPermissions([
@@ -100,7 +87,6 @@ class RolesAndPermissionsSeeder extends Seeder
         // CREATE ADMINS & USERS
         User::create([
             'name' => 'super admin',
-
             'email' => 'super@admin.com',
             'email_verified_at' => now(),
             'password' => Hash::make('password'),

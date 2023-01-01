@@ -1,31 +1,30 @@
 <?php
 
-namespace App\Filament\Resources;
-
-use App\Filament\Resources\PermissionResource\Pages;
+namespace App\Filament\Resources\RoleResource\RelationManagers;
 
 use Filament\Forms;
 use Filament\Resources\Form;
-use Filament\Resources\Resource;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Spatie\Permission\Models\Permission;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
+use PhpParser\Node\Stmt\Label;
 
-class PermissionResource extends Resource
+class PermissionsRelationManager extends RelationManager
 {
-    protected static ?string $model = Permission::class;
-    protected static ?string $navigationGroup = "اداره المستخدمين";
-    protected static ?string $modelLabel = " الصلاحيات ";
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static string $relationship = 'permissions';
+
+    protected static ?string $recordTitleAttribute = 'name';
+    protected static ?string $modelLabel="الصلاحيات";
+    protected static ?string $title="الصلاحيات الحاليه";
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Card::make([
-                    Forms\Components\TextInput::make('name')
-                        ->required()->unique(ignoreRecord: true)
-                        ->label("الاسم")
-                ]),
+                Forms\Components\TextInput::make('name')
+                    ->required()->label("الاسم")
+                    ->maxLength(255),
             ]);
     }
 
@@ -39,6 +38,9 @@ class PermissionResource extends Resource
             ->filters([
                 //
             ])
+            ->headerActions([
+                Tables\Actions\CreateAction::make()->label("اضف صلاحيه جديده"),
+            ])
             ->actions([
                 Tables\Actions\EditAction::make()->label("تعديل"),
                 Tables\Actions\DeleteAction::make()->label("حذف"),
@@ -46,12 +48,5 @@ class PermissionResource extends Resource
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
-    }
-
-    public static function getPages(): array
-    {
-        return [
-            'index' => Pages\ManagePermissions::route('/'),
-        ];
     }
 }
