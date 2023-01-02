@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
@@ -49,6 +50,11 @@ class Device extends Model implements HasMedia
         return $this->belongsTo(Hospital::class);
     }
 
+    public function fixSheets():hasMany
+    {
+        return $this->hasMany(FixSheet::class);
+    }
+
     public function scopeCountDeviceBerLateMonths($query,): array
     {
         $count_device = [];
@@ -63,7 +69,8 @@ class Device extends Model implements HasMedia
         }
         return $count_device;
     }
-    public function scopeCountDeviceStatuesBerLateMonths($query,$vale): array
+
+    public function scopeCountDeviceStatuesBerLateMonths($query, $vale): array
     {
         $count_device = [];
         //set first index 0 f
@@ -73,7 +80,7 @@ class Device extends Model implements HasMedia
                 Device::whereBetween('created_at', [
                     Carbon::now()->subMonth($i + 1)->format('Y-m-d'),
                     Carbon::now()->subMonth(($i))->format('Y-m-d')
-                ])->where("is_active",'=',$vale)->count());
+                ])->where("is_active", '=', $vale)->count());
         }
         return $count_device;
     }

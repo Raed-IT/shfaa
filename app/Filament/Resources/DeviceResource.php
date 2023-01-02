@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\DeviceResource\Pages;
+use App\Filament\Resources\DeviceResource\RelationManagers\FixSheetsRelationManager;
 use App\Models\Device;
 use App\Models\Hospital;
 use Filament\Forms;
@@ -53,11 +54,13 @@ class DeviceResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make("name")->label('الاسم'),
-                Tables\Columns\TextColumn::make("SN")->label('SN'),
+                Tables\Columns\TextColumn::make("SN")->label('SN')
+                    ->copyable()
+                    ->copyMessage('تم نسخ ال SN'),
                 Tables\Columns\TextColumn::make("created_at")->dateTime("d-m-y")->label("تاريخ الاضافه"),
                 Tables\Columns\ToggleColumn::make("is_active")->label('الحاله'),
                 SpatieMediaLibraryImageColumn::make('image')->disk('public'),
-                SpatieMediaLibraryImageColumn::make('pdf')->disk('public'),
+
             ])
             ->filters([
                 //
@@ -74,8 +77,7 @@ class DeviceResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
-        ];
+            FixSheetsRelationManager::class];
     }
 
     public static function getPages(): array

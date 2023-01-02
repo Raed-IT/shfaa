@@ -15,5 +15,6 @@ class FixSheet extends Model implements HasMedia
         'diagnosis',
         'description',
         "device_id",
+        "user_id",
     ];
 }

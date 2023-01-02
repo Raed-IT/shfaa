@@ -1,42 +1,28 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Resources\DeviceResource\RelationManagers;
 
-use App\Filament\Resources\FixSheetResource\Pages;
-use App\Filament\Resources\FixSheetResource\RelationManagers;
 use App\Models\Device;
-use App\Models\FixSheet;
-use App\Models\Hospital;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Resources\Form;
-use Filament\Resources\Resource;
+use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Filament\Forms\Components\TextInput;
 
-class FixSheetResource extends Resource
+class FixSheetsRelationManager extends RelationManager
 {
-    protected static ?string $model = FixSheet::class;
+    protected static string $relationship = 'fixSheets';
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
-    protected static ?string $modelLabel = " تقارير الاصلاح ";
-    protected static ?string $label = " الاجهزه  ";
+    protected static ?string $recordTitleAttribute = 'diagnosis';
+    protected static ?string $title = '  تقارير الاصلاح';
+
+    protected static ?string $modelLabel = '  تقارير الاصلاح';
 
     public static function form(Form $form): Form
     {
-        /*
-        diagnosis
-        solution
-        description
-        status
-        device_id
-        user_id
-        */
         return $form
             ->schema([
                 Forms\Components\Card::make([
@@ -103,6 +89,9 @@ class FixSheetResource extends Resource
             ->filters([
                 //
             ])
+            ->headerActions([
+                Tables\Actions\CreateAction::make()->label('اضافه تقرير اصلاح'),
+            ])
             ->actions([
                 Tables\Actions\EditAction::make()->label("تعديل"),
                 Tables\Actions\DeleteAction::make()->label("حذف"),
@@ -110,21 +99,5 @@ class FixSheetResource extends Resource
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
-
-    public static function getPages(): array
-    {
-        return [
-            'index' => Pages\ListFixSheets::route('/'),
-            'create' => Pages\CreateFixSheet::route('/create'),
-            'edit' => Pages\EditFixSheet::route('/{record}/edit'),
-        ];
     }
 }

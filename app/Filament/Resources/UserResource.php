@@ -46,7 +46,10 @@ class UserResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make("name")->label('الاسم'),
-                Tables\Columns\TextColumn::make("email")->label('email'),
+                Tables\Columns\TextColumn::make("email")->label('email')
+                    ->icon('heroicon-s-mail')
+                    ->iconPosition('before')->copyable()
+                    ->copyMessage('تم نسخ الايميل'),
                 Tables\Columns\TextColumn::make("created_at")->dateTime("d-m-y")->label("تاريخ الاضافه"),
                 Tables\Columns\ToggleColumn::make("is_active")->label('الحاله'),
             ])
