@@ -3,11 +3,21 @@
 namespace App\Filament\Widgets;
 
 use App\Models\Device;
-use Filament\Widgets\LineChartWidget;
+use Filament\Widgets\BarChartWidget;
 
-class DeviceChart extends LineChartWidget
+class DeviceChart extends BarChartWidget
 {
     protected static ?string $heading = 'Chart';
+    protected static ?array $options = [
+        'plugins' => [
+            'legend' => [
+                'display' => true,
+                "borderColor" => "#fffff",
+                "color" => 'red',
+            ],
+            "color" => 'red',
+        ],
+    ];
 
     protected function getData(): array
     {

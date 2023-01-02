@@ -15,6 +15,7 @@ class HospitalSeeder extends Seeder
      */
     public function run()
     {
+        $this->command->info("seeding Hospital ...");
         Hospital::create([
             'name' => "مشفى الشفاء",
             "phone" => "0958968962",
@@ -35,5 +36,6 @@ class HospitalSeeder extends Seeder
             "phone" => "0958968962",
             "is_active" => true,
         ]);
+        $this->command->info("seeding Hospital DON");
     }
 }

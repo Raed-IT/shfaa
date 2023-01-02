@@ -16,6 +16,8 @@ class DeviceSeeder extends Seeder
      */
     public function run()
     {
+        $this->command->info("seeding Device");
+
         Device::create([
             'name' => "جهاز اشعه",
             "SN" => Str::between('a', 'z', 10),
@@ -40,5 +42,7 @@ class DeviceSeeder extends Seeder
             "is_active" => false,
             "hospital_id"=>1
         ]);
+        $this->command->info("seeding Device DON");
+
     }
 }
