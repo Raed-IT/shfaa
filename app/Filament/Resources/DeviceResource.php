@@ -12,8 +12,6 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class DeviceResource extends Resource
 {
@@ -38,8 +36,13 @@ class DeviceResource extends Resource
                         ->label('اختر المشفى')
                         ->options(Hospital::all()->pluck('name', 'id'))
                         ->searchable(),
-                    SpatieMediaLibraryFileUpload::make('image')->collection("images")->enableReordering(),
-//                    SpatieMediaLibraryFileUpload::make('pdf')->collection("service_manual")->acceptedFileTypes(['pdf']),
+                    SpatieMediaLibraryFileUpload::make('image')
+                        ->collection("images")
+                        ->acceptedFileTypes(['gpj', "png", 'jpeg'])
+                        ->enableReordering(),
+                    SpatieMediaLibraryFileUpload::make('pdf')
+                        ->collection("service_manual")
+                        ->acceptedFileTypes(['pdf']),
                     Forms\Components\Toggle::make('is_active')->default(true)->label("الحاله"),
                 ]),
             ]);
@@ -55,13 +58,13 @@ class DeviceResource extends Resource
                 Tables\Columns\ToggleColumn::make("is_active")->label('الحاله'),
                 SpatieMediaLibraryImageColumn::make('image')->disk('public'),
                 SpatieMediaLibraryImageColumn::make('pdf')->disk('public'),
-
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->label("تعديل"),
+                Tables\Actions\DeleteAction::make()->label("حذف"),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
