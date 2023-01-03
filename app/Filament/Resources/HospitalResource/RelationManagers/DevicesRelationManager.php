@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\HospitalResource\RelationManagers;
 
+use App\Exports\DeviceExport;
 use App\Models\Hospital;
 use Filament\Forms;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
@@ -12,7 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-
+use Filament\Tables\Actions\Action;
 class DevicesRelationManager extends RelationManager
 {
     protected static string $relationship = 'devices';
@@ -58,11 +59,16 @@ class DevicesRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make()->label('تصدير لاكسل')->action(function () {})->color('success'),
+                Tables\Actions\CreateAction::make()->label('اضافه جهاز'),
+                Tables\Actions\Action::make("سي")->label('تصدير لاكسل')->action(function (){
+
+                })->color('success'),
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
+
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

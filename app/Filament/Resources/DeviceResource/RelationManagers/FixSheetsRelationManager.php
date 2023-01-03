@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\DeviceResource\RelationManagers;
 
+use App\Exports\DeviceExport;
 use App\Models\Device;
 use App\Models\User;
 use Filament\Forms;
@@ -90,7 +91,9 @@ class FixSheetsRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make()->label('تصدير لاكسل')->action(function () {})->color('success'),
+                Tables\Actions\CreateAction::make()->label('تصدير لاكسل')->action(function () {
+
+                })->color('success'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->label("تعديل"),

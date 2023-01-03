@@ -159,6 +159,9 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
+//        composer require psr/simple-cache:^1.0 maatwebsite/excel
+//    then composer require maatwebsite/excel
+        Maatwebsite\Excel\ExcelServiceProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
         Illuminate\Bus\BusServiceProvider::class,
@@ -210,6 +213,7 @@ return [
 
     'aliases' => Facade::defaultAliases()->merge([
         // 'ExampleClass' => App\Example\ExampleClass::class,
+        Maatwebsite\Excel\Facades\Excel::class,
     ])->toArray(),
 
 ];

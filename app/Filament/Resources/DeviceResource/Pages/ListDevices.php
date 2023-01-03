@@ -2,11 +2,13 @@
 
 namespace App\Filament\Resources\DeviceResource\Pages;
 
+use App\Exports\DeviceExport;
 use App\Filament\Resources\DeviceResource;
 use App\Filament\Resources\DeviceResource\Widgets\StatusDevicesOverview;
-use App\Filament\Resources\HospitalResource\Widgets\StatusOverview;
 use Filament\Pages\Actions;
 use Filament\Resources\Pages\ListRecords;
+
+use Maatwebsite\Excel\Facades\Excel;
 
 class ListDevices extends ListRecords
 {
@@ -17,6 +19,7 @@ class ListDevices extends ListRecords
         return [
             Actions\CreateAction::make()->label("اضف جهاز"),
             Actions\Action::make('excel')->label('تصدير لاكسل')->action(function () {
+                return new DeviceExport();
             })->color('success'),
 
         ];

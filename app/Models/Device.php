@@ -54,7 +54,12 @@ class Device extends Model implements HasMedia
         return $this->belongsTo(Hospital::class);
     }
 
-    public function fixSheets():hasMany
+    public function section(): BelongsTo
+    {
+        return $this->belongsTo(Section::class);
+    }
+
+    public function fixSheets(): hasMany
     {
         return $this->hasMany(FixSheet::class);
     }
