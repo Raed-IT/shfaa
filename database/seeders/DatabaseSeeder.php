@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
             RolesAndPermissionsSeeder::class,
             HospitalSeeder::class,
             DeviceSeeder::class,
-            FixSheetSeeder::class
+            FixSheetSeeder::class,
+            SectionSeeder::class,
             ]);
         // \App\Models\User::factory(10)->create();
 

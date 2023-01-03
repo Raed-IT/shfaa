@@ -39,10 +39,15 @@ class Device extends Model implements HasMedia
     use InteractsWithMedia;
 
     protected $fillable = [
-        'name',
-        'SN',
+        "name",
+        "SN",
+        "is_active",
         "hospital_id",
-        "is_active"
+        "count",
+        "company",
+        "model",
+        "section_id",
+
     ];
 
     public function hospital(): BelongsTo

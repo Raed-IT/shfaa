@@ -12,16 +12,10 @@ return new class extends Migration {
      */
     public function up()
     {
-        Schema::create('devices', function (Blueprint $table) {
+        Schema::create('sections', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('SN');
-            $table->integer("count");
-            $table->string('company');
-            $table->string('model');
-            $table->bigInteger("hospital_id");
-            $table->bigInteger("section_id");
-            $table->boolean("is_active")->default(true);
+            $table->string("name");
+            $table->bigInteger('hospital_id');
             $table->timestamps();
         });
     }
@@ -33,6 +27,6 @@ return new class extends Migration {
      */
     public function down()
     {
-        Schema::dropIfExists('devices');
+        Schema::dropIfExists('sections');
     }
 };
