@@ -16,8 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 class DevicesRelationManager extends RelationManager
 {
     protected static string $relationship = 'devices';
-
-    protected static ?string $recordTitleAttribute = 'name';
+    protected static ?string $title="الاجهزه الموجوده في المشفى";
 
     public static function form(Form $form): Form
     {
@@ -59,7 +58,7 @@ class DevicesRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()->label('تصدير لاكسل')->action(function () {})->color('success'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),

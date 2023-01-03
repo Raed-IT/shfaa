@@ -49,9 +49,9 @@ class HospitalResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make("name")->label("الاسم"),
                 Tables\Columns\TextColumn::make("phone")->label("رقم التواصل "),
-                SpatieMediaLibraryImageColumn::make('image')->disk('public'),
                 Tables\Columns\IconColumn::make('is_active')
-                    ->boolean()
+                    ->boolean()->label("الحاله"),
+                SpatieMediaLibraryImageColumn::make('image')->disk('public'),
             ])
             ->filters([
                 //

@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             DeviceSeeder::class,
             FixSheetSeeder::class,
             SectionSeeder::class,
+            SettingSeeder::class
             ]);
         // \App\Models\User::factory(10)->create();
 

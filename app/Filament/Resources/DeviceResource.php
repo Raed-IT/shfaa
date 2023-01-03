@@ -6,6 +6,8 @@ use App\Filament\Resources\DeviceResource\Pages;
 use App\Filament\Resources\DeviceResource\RelationManagers\FixSheetsRelationManager;
 use App\Models\Device;
 use App\Models\Hospital;
+use App\Models\Section;
+use App\Models\Setting;
 use Filament\Forms;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Resources\Form;
@@ -28,24 +30,51 @@ class DeviceResource extends Resource
             ->schema([
                 Forms\Components\Card::make([
                     Forms\Components\TextInput::make('name')
-                        ->required()->unique(ignoreRecord: true)
+                        ->required()
                         ->label("الاسم الجهاز"),
                     Forms\Components\TextInput::make('SN')
                         ->unique(ignoreRecord: true)
                         ->label("SN "),
+                    Forms\Components\TextInput::make('count')
+                        ->numeric()
+                        ->required()
+                        ->default(1)->label('العدد'),
+                    Forms\Components\TextInput::make('company')
+                        ->required()
+                        ->label('الشركه المصنعه'),
                     Forms\Components\Select::make('hospital_id')
                         ->label('اختر المشفى')
                         ->options(Hospital::all()->pluck('name', 'id'))
+                        ->searchable()->default(function () {
+                            return Hospital::find(Setting::find(1)->hospital_id)->id;
+                        })
+                        ->placeholder('اختر المشفى')
+                        ->reactive(),
+
+                    Forms\Components\Select::make('section_id')
+                        ->label(' القسم او العياده')
+                        ->options(function (callable $get) {
+                            if (!$get('hospital_id')) {
+                                return [];
+                            } else {
+                                return Section::where('hospital_id', '=', $get('hospital_id'))->pluck('name', 'id')->toArray();
+                            }
+                        })->placeholder('اختر القسم او العياده')
                         ->searchable(),
+
                     SpatieMediaLibraryFileUpload::make('image')
                         ->collection("images")
-                        ->acceptedFileTypes(['gpj', "png", 'jpeg'])
+                        ->image()
                         ->enableReordering(),
                     SpatieMediaLibraryFileUpload::make('pdf')
                         ->collection("service_manual")
                         ->acceptedFileTypes(['pdf']),
                     Forms\Components\Toggle::make('is_active')->default(true)->label("الحاله"),
+                ])->columns([
+                    'sm' => 1,
+                    'lg' => 2,
                 ]),
+
             ]);
     }
 
@@ -53,12 +82,13 @@ class DeviceResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make("name")->label('الاسم'),
-                Tables\Columns\TextColumn::make("SN")->label('SN')
+                Tables\Columns\TextColumn::make("name")->label('الاسم')->searchable(),
+                Tables\Columns\TextColumn::make("SN")->label('SN')->searchable()
                     ->copyable()
                     ->copyMessage('تم نسخ ال SN'),
                 Tables\Columns\TextColumn::make("created_at")->dateTime("d-m-y")->label("تاريخ الاضافه"),
-                Tables\Columns\ToggleColumn::make("is_active")->label('الحاله'),
+                Tables\Columns\IconColumn::make('is_active')
+                    ->boolean()->label("الحاله"),
                 SpatieMediaLibraryImageColumn::make('image')->disk('public'),
 
             ])

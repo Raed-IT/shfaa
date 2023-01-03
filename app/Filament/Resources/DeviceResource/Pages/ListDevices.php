@@ -16,8 +16,12 @@ class ListDevices extends ListRecords
     {
         return [
             Actions\CreateAction::make()->label("اضف جهاز"),
+            Actions\Action::make('excel')->label('تصدير لاكسل')->action(function () {
+            })->color('success'),
+
         ];
     }
+
     protected function getHeaderWidgets(): array
     {
         return [

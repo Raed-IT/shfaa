@@ -88,7 +88,7 @@ class FixSheetResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make("diagnosis")->label("التشخيص الاولي"),
+                Tables\Columns\TextColumn::make("diagnosis")->label("التشخيص الاولي")->searchable(),
                 Tables\Columns\TextColumn::make("status")->label("الحاله ")
                     ->enum([
                         'Don' => 'تم الاصلاح',

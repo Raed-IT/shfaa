@@ -18,7 +18,7 @@ return new class extends Migration {
             $table->string('SN');
             $table->integer("count");
             $table->string('company');
-            $table->string('model');
+            $table->string('model')->nullable();
             $table->bigInteger("hospital_id");
             $table->bigInteger("section_id");
             $table->boolean("is_active")->default(true);

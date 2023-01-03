@@ -14,6 +14,7 @@ class ManageSections extends ManageRecords
     {
         return [
             Actions\CreateAction::make()->label('اضافه قسم او عياده'),
+            Actions\Action::make('excel')->label('تصدير لاكسل')->action(function () {})->color('success'),
         ];
     }
 }

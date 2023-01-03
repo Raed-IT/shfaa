@@ -17,6 +17,8 @@ class SectionSeeder extends Seeder
      */
     public function run()
     {
+        $this->command->info("seeding SectionSeeder ...");
+
         $faker =Factory::create();
         for ($i = 0; $i < 20; $i++) {
             Section::create([
@@ -24,5 +26,7 @@ class SectionSeeder extends Seeder
                 "hospital_id"=>1
             ]);
         }
+        $this->command->info(" DON seeding SectionSeeder ");
+
     }
 }

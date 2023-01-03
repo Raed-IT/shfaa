@@ -45,7 +45,6 @@ class Device extends Model implements HasMedia
         "hospital_id",
         "count",
         "company",
-        "model",
         "section_id",
 
     ];

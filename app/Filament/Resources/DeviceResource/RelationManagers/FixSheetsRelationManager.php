@@ -90,7 +90,7 @@ class FixSheetsRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make()->label('اضافه تقرير اصلاح'),
+                Tables\Actions\CreateAction::make()->label('تصدير لاكسل')->action(function () {})->color('success'),
             ])
             ->actions([
                 Tables\Actions\EditAction::make()->label("تعديل"),
